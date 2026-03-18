@@ -1,0 +1,41 @@
+[user]
+    name = Ayman Osman
+    email = aymano.osman@gmail.com
+[core]
+	autocrlf = input
+[merge]
+    ff = true
+[color]
+    ui = auto
+[diff]
+    tool = opendiff
+[push]
+    default = simple
+[alias]
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed  = !sh -c "git ls-files -v | grep ^h | cut -c 4-"
+    br     = branch
+    ci     = commit
+    co     = checkout
+    commute = !sh -c 'git-commute $1'
+    ls = ls-files
+    st     = stash
+    unstage = rm -r --cached
+[gpg]
+	program = gpg
+[rebase]
+	autosquash = true
+[pull]
+	rebase = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[init]
+	defaultBranch = main
+[github]
+	user = aymanosman
+[rerere]
+	enabled = true
