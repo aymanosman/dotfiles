@@ -1,0 +1,26 @@
+# -*- mode: fish; -*-
+# alias mkcd="mkdir -p $1 && cd $1"
+alias psgrep="ps -ef | grep $1"
+
+# ls
+alias l="gls --color -alph --group-directories-first --ignore '*~'"
+
+alias mv="mv -i"
+alias less="less -X -F"
+
+# emacs
+alias ef="emacsclient --alternate-editor="" --create-frame --no-wait"
+alias et='emacsclient --alternate-editor="" --tty'
+alias emacs_basic="emacs -nw -q --no-desktop"
+
+alias sudo='sudo '
+
+if not test (uname) = "Darwin"
+  alias open=xdg-open
+end
+
+# repo
+alias ,gh="repo_get github.com $1"
+alias ,ghp="repo_get --private github.com $1"
+alias ,gl="repo_get gitlab.com $1"
+alias ,glp="repo_get --private gitlab.com $1"
