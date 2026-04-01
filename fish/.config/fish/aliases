@@ -1,5 +1,4 @@
 # -*- mode: fish; -*-
-# alias mkcd="mkdir -p $1 && cd $1"
 alias psgrep="ps -ef | grep $1"
 
 # ls

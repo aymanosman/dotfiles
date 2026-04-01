@@ -1,5 +1,5 @@
 if status is-interactive
-    # eval (~/homebrew/bin/brew shellenv)
+    source (status dirname)/aliases
 
     # ASDF configuration code
     if test -z $ASDF_DATA_DIR
