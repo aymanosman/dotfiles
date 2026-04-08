@@ -455,3 +455,7 @@
 
 (progn ;; transpose-frame
   (install 'transpose-frame))
+
+(progn ;; eros
+  (install 'eros)
+  (eros-mode 1))
