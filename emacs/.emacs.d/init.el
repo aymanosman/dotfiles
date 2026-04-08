@@ -37,3 +37,22 @@
 
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
+
+;;; packages
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/")
+             t)
+
+(package-initialize)
+
+(defun install (pkg)
+  (unless (package-installed-p pkg)
+    (package-install pkg))
+  (require pkg))
+
+(defun install-vc (url &optional pkg)
+  (unless (package-installed-p pkg)
+    (package-vc-install url nil nil pkg))
+  (require pkg))
