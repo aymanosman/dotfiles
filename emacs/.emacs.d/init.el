@@ -382,3 +382,10 @@
   (install 'avy)
 
   (define-key evil-normal-state-map (kbd "SPC j w") #'avy-goto-word-1))
+
+(progn ;; eldoc
+  (setq eldoc-echo-area-use-multiline-p nil))
+
+(progn ;; eldoc-box
+  (install 'eldoc-box)
+  (eldoc-box-hover-at-point-mode))
