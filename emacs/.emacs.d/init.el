@@ -373,3 +373,7 @@
   (keymap-global-set "C-c a" 'org-agenda)
   (keymap-global-set "C-c l" 'org-store-link)
   (keymap-global-set "C-c c" 'org-capture))
+
+(progn ;; eww
+  (setq shr-use-fonts nil)
+  (setq shr-width 80))
