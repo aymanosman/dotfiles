@@ -405,3 +405,12 @@
 (progn ;; eglot
   (require 'eglot)
   (setq eglot-report-progress nil))
+
+(progn ;; image-mode
+  (setq image-auto-resize 'fit-window))
+
+(progn ;; ediff
+  (setq ediff-window-setup-function #'ediff-setup-windows-plain))
+
+(progn ;; re-builder
+  (setq reb-re-syntax 'string))
