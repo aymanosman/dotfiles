@@ -414,3 +414,8 @@
 
 (progn ;; re-builder
   (setq reb-re-syntax 'string))
+
+(progn ;; tramp
+  (require 'tramp)
+  (setq shell-file-name "/bin/sh")
+  (setq-default explicit-shell-file-name "/bin/bash"))
