@@ -56,3 +56,20 @@
   (unless (package-installed-p pkg)
     (package-vc-install url nil nil pkg))
   (require pkg))
+
+(progn ;; evil
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-undo-system 'undo-redo)
+
+  (install 'evil)
+
+  (setq evil-normal-state-cursor '(box "light blue")
+        evil-insert-state-cursor '(bar "medium sea green")
+        evil-visual-state-cursor '(hollow "orange")
+        evil-emacs-state-cursor '(box "orange"))
+  (setq evil-symbol-word-search t)
+
+  (evil-mode 1)
+
+  (define-key global-map (kbd "<escape>") 'keyboard-escape-quit))
