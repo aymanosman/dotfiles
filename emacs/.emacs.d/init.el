@@ -43,6 +43,11 @@
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
+(progn ;; server
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
+
 ;;; packages
 
 (require 'package)
