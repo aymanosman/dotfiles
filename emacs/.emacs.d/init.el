@@ -128,3 +128,12 @@
   (install 'embark-consult)
 
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+
+(progn ;; smartparens
+  (install 'smartparens)
+  (require 'smartparens-config)
+
+  (cl-dolist (mode-hook '(emacs-lisp-mode-hook
+                          lisp-mode-hook
+                          lisp-interaction-mode-hook))
+    (add-hook mode-hook #'smartparens-strict-mode)))
