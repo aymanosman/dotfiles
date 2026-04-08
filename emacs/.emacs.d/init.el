@@ -452,3 +452,6 @@
 (progn ;; dumb-jump
   (install 'dumb-jump)
   (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
+
+(progn ;; transpose-frame
+  (install 'transpose-frame))
