@@ -353,3 +353,6 @@
       (call-interactively 'project-switch-project)))
 
   (global-set-key [remap project-switch-project] #'switch-project-and-find-file))
+
+(progn ;; treesit
+  (setq treesit-font-lock-level 4))
