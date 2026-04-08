@@ -356,3 +356,20 @@
 
 (progn ;; treesit
   (setq treesit-font-lock-level 4))
+
+(progn ;; org
+  (setq org-image-actual-width nil
+        org-src-preserve-indentation t
+        org-read-date-popup-calendar t
+        org-confirm-babel-evaluate nil
+        org-export-babel-evaluate nil)
+
+  (org-clock-persistence-insinuate)
+  (setq org-clock-persist 'history)
+
+  (add-hook 'org-mode-hook (defun configure-org-mode ()
+                             (org-indent-mode 1)))
+
+  (keymap-global-set "C-c a" 'org-agenda)
+  (keymap-global-set "C-c l" 'org-store-link)
+  (keymap-global-set "C-c c" 'org-capture))
