@@ -137,3 +137,44 @@
                           lisp-mode-hook
                           lisp-interaction-mode-hook))
     (add-hook mode-hook #'smartparens-strict-mode)))
+
+(progn ;; evil - smartparens
+  (define-key evil-normal-state-map (kbd ">") #'sp-forward-slurp-sexp)
+  (define-key evil-normal-state-map (kbd "<") #'sp-forward-barf-sexp)
+  (define-key evil-insert-state-map (kbd "M->") #'sp-forward-slurp-sexp))
+
+(progn ;; evil - unimpaired
+  (defun evil-impaired-insert-space-above (count)
+    (interactive "p")
+    (save-excursion
+      (dotimes (_ count)
+        (evil-insert-newline-above))))
+
+  (defun evil-impaired-insert-space-below (count)
+    (interactive "p")
+    (save-excursion
+      (dotimes (_ count)
+        (evil-insert-newline-below))))
+
+  (define-key evil-normal-state-map (kbd "SPC O") #'evil-impaired-insert-space-above)
+  (define-key evil-normal-state-map (kbd "SPC o") #'evil-impaired-insert-space-below))
+
+(progn ;; evil - insert mode
+  (define-key evil-insert-state-map (kbd "C-e") #'move-end-of-line)
+  (define-key evil-insert-state-map (kbd "C-a") #'move-beginning-of-line))
+
+(progn ;; evil - misc
+  (define-key evil-normal-state-map (kbd "K") #'describe-symbol)
+  (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions)
+
+  (define-key evil-motion-state-map [down-mouse-1] nil)
+  (define-key evil-motion-state-map [down-mouse-1] 'mouse-drag-region)
+
+  (define-key global-map (kbd "M-s") #'save-buffer)
+  (define-key global-map (kbd "M-v") #'cua-paste))
+
+(progn ;; evil - error navigation
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "] e") #'next-error)
+              (define-key evil-normal-state-local-map (kbd "[ e") #'previous-error))))
