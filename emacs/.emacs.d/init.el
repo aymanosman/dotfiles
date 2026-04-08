@@ -308,3 +308,22 @@
     "gl" 'tabulated-list-next-column
     "gh" 'tabulated-list-previous-column
     "q" 'quit-window))
+
+(progn ;; completion-in-region
+  (setq completion-in-region-function
+        (lambda (&rest args)
+          (apply (if vertico-mode
+                     #'consult-completion-in-region
+                   #'completion--in-region)
+                 args)))
+
+  (add-hook 'minibuffer-mode-hook 'vertico-mode)
+
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (setq-local corfu-echo-delay nil
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
