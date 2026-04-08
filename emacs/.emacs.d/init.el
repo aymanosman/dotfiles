@@ -419,3 +419,13 @@
   (require 'tramp)
   (setq shell-file-name "/bin/sh")
   (setq-default explicit-shell-file-name "/bin/bash"))
+
+(progn ;; vterm
+  (install 'vterm)
+
+  (setq vterm-shell explicit-shell-file-name)
+
+  (define-key vterm-mode-map (kbd "M-v") 'vterm-yank)
+
+  (evil-define-key 'normal vterm-mode-map
+    "p" 'vterm-yank))
