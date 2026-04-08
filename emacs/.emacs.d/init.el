@@ -389,3 +389,15 @@
 (progn ;; eldoc-box
   (install 'eldoc-box)
   (eldoc-box-hover-at-point-mode))
+
+(progn ;; tempel
+  (install 'tempel)
+
+  (setq tempel-trigger-prefix "<")
+
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions (cons #'tempel-complete completion-at-point-functions)))
+
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf))
