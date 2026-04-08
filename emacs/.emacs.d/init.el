@@ -401,3 +401,7 @@
   (add-hook 'conf-mode-hook 'tempel-setup-capf)
   (add-hook 'prog-mode-hook 'tempel-setup-capf)
   (add-hook 'text-mode-hook 'tempel-setup-capf))
+
+(progn ;; eglot
+  (require 'eglot)
+  (setq eglot-report-progress nil))
