@@ -448,3 +448,7 @@
       (kbd "C-k") 'flymake-goto-prev-error
       (kbd "RET") 'flymake-goto-diagnostic
       (kbd "TAB") 'flymake-show-diagnostic)))
+
+(progn ;; dumb-jump
+  (install 'dumb-jump)
+  (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
