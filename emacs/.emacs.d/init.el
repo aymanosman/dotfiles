@@ -78,3 +78,53 @@
   (install 'evil-collection)
   (setq evil-collection-want-unimpaired-p nil)
   (evil-collection-init '(calendar magit magit-section debug edebug corfu replace proced)))
+
+(progn ;; which-key
+  (install 'which-key)
+  (which-key-mode))
+
+(progn ;; vertico
+  (install 'vertico)
+  (vertico-mode))
+
+(progn ;; emacs
+  (define-key minibuffer-local-completion-map " " 'self-insert-command)
+  (define-key minibuffer-local-completion-map "?" 'self-insert-command))
+
+(progn ;; orderless
+  (install 'orderless)
+  (setq completion-styles '(orderless flex basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles basic partial-completion)))))
+
+(progn ;; marginalia
+  (install 'marginalia)
+  (marginalia-mode))
+
+(progn ;; corfu
+  (install 'corfu)
+  (setq corfu-auto t)
+  (global-corfu-mode))
+
+(progn ;; consult
+  (setq consult-project-root-function
+        (lambda ()
+          (when-let (project (project-current))
+            (car (project-roots project)))))
+
+  (keymap-global-set "C-x b" 'consult-buffer)
+  (keymap-global-set "M-y" 'consult-yank-pop))
+
+(progn ;; embark
+  (install 'embark)
+
+  (keymap-global-set "C-." #'embark-act)
+  (keymap-global-set "C-;" #'embark-dwim)
+
+  (evil-define-key 'normal global-map
+    (kbd "C-.") #'embark-act))
+
+(progn ;; embark-consult
+  (install 'embark-consult)
+
+  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
