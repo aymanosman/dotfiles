@@ -252,3 +252,9 @@
   (define-key evil-normal-state-map (kbd "SPC g g") #'magit)
   (define-key evil-normal-state-map (kbd "SPC g b") #'magit-branch-checkout)
   (define-key evil-normal-state-map (kbd "SPC g l") #'magit-log-current))
+
+(progn ;; winner
+  (install 'winner)
+  (keymap-set global-map "M-[" 'winner-undo)
+  (keymap-set global-map "M-]" 'winner-redo)
+  (winner-mode))
