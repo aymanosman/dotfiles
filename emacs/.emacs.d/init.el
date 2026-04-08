@@ -377,3 +377,8 @@
 (progn ;; eww
   (setq shr-use-fonts nil)
   (setq shr-width 80))
+
+(progn ;; avy
+  (install 'avy)
+
+  (define-key evil-normal-state-map (kbd "SPC j w") #'avy-goto-word-1))
