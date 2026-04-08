@@ -429,3 +429,6 @@
 
   (evil-define-key 'normal vterm-mode-map
     "p" 'vterm-yank))
+
+(progn ;; cape
+  (install 'cape))
