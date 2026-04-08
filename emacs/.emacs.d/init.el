@@ -432,3 +432,19 @@
 
 (progn ;; cape
   (install 'cape))
+
+(progn ;; flymake
+  (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error))
+
+(progn ;; evil flymake
+  (dolist (map '(flymake-mode-map
+                 flymake-diagnostics-buffer-mode-map
+                 flymake-project-diagnostics-mode-map))
+    (evil-define-key 'normal map
+      "q" 'quit-window
+
+      (kbd "C-j") 'flymake-goto-next-error
+      (kbd "C-k") 'flymake-goto-prev-error
+      (kbd "RET") 'flymake-goto-diagnostic
+      (kbd "TAB") 'flymake-show-diagnostic)))
