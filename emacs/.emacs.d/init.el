@@ -258,3 +258,9 @@
   (keymap-set global-map "M-[" 'winner-undo)
   (keymap-set global-map "M-]" 'winner-redo)
   (winner-mode))
+
+(progn ;; rainbow-delimiters
+  (install 'rainbow-delimiters)
+
+  (cl-dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook))
+    (add-hook mode-hook #'rainbow-delimiters-mode)))
