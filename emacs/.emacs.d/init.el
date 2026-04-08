@@ -280,3 +280,31 @@
 
 (progn ;; xref
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+
+(progn ;; consult - SPC leader
+  (defvar consult-space-map nil
+    "Keymap for consult under SPC leader")
+
+  (setf consult-space-map
+        (let ((map (make-sparse-keymap)))
+          (keymap-set map "i" #'consult-imenu)
+          (keymap-set map "s" #'consult-line)
+          (keymap-set map "p" #'consult-ripgrep)
+          map))
+
+  (keymap-set evil-normal-state-map "SPC s" consult-space-map))
+
+(progn ;; evil - tabulated-list-mode
+  (evil-define-key nil tabulated-list-mode-map
+    "n" nil
+    "p" nil)
+
+  (evil-set-initial-state 'tabulated-list-mode 'normal)
+
+  (evil-define-key 'normal tabulated-list-mode-map
+    "S" 'tabulated-list-sort
+    "{" 'tabulated-list-narrow-current-column
+    "}" 'tabulated-list-widen-current-column
+    "gl" 'tabulated-list-next-column
+    "gh" 'tabulated-list-previous-column
+    "q" 'quit-window))
