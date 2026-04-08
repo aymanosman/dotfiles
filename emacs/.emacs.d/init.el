@@ -73,3 +73,8 @@
   (evil-mode 1)
 
   (define-key global-map (kbd "<escape>") 'keyboard-escape-quit))
+
+(progn ;; evil-collection
+  (install 'evil-collection)
+  (setq evil-collection-want-unimpaired-p nil)
+  (evil-collection-init '(calendar magit magit-section debug edebug corfu replace proced)))
