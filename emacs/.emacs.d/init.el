@@ -17,6 +17,8 @@
       read-extended-command-predicate #'command-completion-default-include-p
       use-dialog-box nil)
 
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 (setq-default indent-tabs-mode nil)
 (setq tab-always-indent 'complete)
 
@@ -327,3 +329,19 @@
       (corfu-mode 1)))
 
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+
+(progn ;; project
+  (require 'monorepo)
+
+  (setq project-find-functions '(monorepo-try-find-project
+                                 project-try-vc))
+
+  (define-key evil-normal-state-map (kbd "SPC p f") #'project-find-file)
+  (define-key evil-normal-state-map (kbd "SPC p p") #'project-switch-project)
+
+  (defun switch-project-and-find-file ()
+    (interactive)
+    (let ((project-switch-commands 'project-find-file))
+      (call-interactively 'project-switch-project)))
+
+  (global-set-key [remap project-switch-project] #'switch-project-and-find-file))
