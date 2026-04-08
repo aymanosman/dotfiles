@@ -264,3 +264,19 @@
 
   (cl-dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook))
     (add-hook mode-hook #'rainbow-delimiters-mode)))
+
+(progn ;; calendar
+  (setq calendar-week-start-day 1
+        calendar-date-style 'iso))
+
+(progn ;; default-text-scale
+  (install 'default-text-scale)
+  (default-text-scale-mode 1))
+
+(progn ;; prog-mode
+  (add-hook 'prog-mode-hook (lambda ()
+                              (add-hook 'before-save-hook 'whitespace-cleanup 0 t)))
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+
+(progn ;; xref
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
