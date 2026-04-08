@@ -235,3 +235,20 @@
   (define-key evil-normal-state-map (kbd "SPC f r") #'rename-visited-file)
   (define-key evil-normal-state-map (kbd "SPC f d") #'delete-current-file)
   (define-key evil-normal-state-map (kbd "SPC f p") #'a/find-user-emacs-file))
+
+(progn ;; magit
+  (install 'magit)
+  (install 'git-modes)
+
+  (add-hook 'gitignore-mode-hook
+            (lambda ()
+              (setq require-final-newline t)))
+
+  (defun set-fill-column-80 ()
+    (setq-local fill-column 80))
+
+  (add-hook 'text-mode-hook 'set-fill-column-80)
+
+  (define-key evil-normal-state-map (kbd "SPC g g") #'magit)
+  (define-key evil-normal-state-map (kbd "SPC g b") #'magit-branch-checkout)
+  (define-key evil-normal-state-map (kbd "SPC g l") #'magit-log-current))
