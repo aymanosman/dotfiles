@@ -178,3 +178,60 @@
             (lambda ()
               (define-key evil-normal-state-local-map (kbd "] e") #'next-error)
               (define-key evil-normal-state-local-map (kbd "[ e") #'previous-error))))
+
+(progn ;; evil - window management
+  (define-key evil-normal-state-map (kbd "SPC w j") #'evil-window-down)
+  (define-key evil-normal-state-map (kbd "SPC w k") #'evil-window-up)
+  (define-key evil-normal-state-map (kbd "SPC w l") #'evil-window-right)
+  (define-key evil-normal-state-map (kbd "SPC w h") #'evil-window-left)
+  (define-key evil-normal-state-map (kbd "SPC w s") #'evil-window-split)
+  (define-key evil-normal-state-map (kbd "SPC w v") #'evil-window-vsplit)
+  (define-key evil-normal-state-map (kbd "SPC w d") #'evil-window-delete)
+  (define-key evil-normal-state-map (kbd "SPC w o") #'delete-other-windows))
+
+(progn ;; evil - buffer management
+  (require 'ibuf-ext)
+
+  (defun kill-all-other-buffers ()
+    (interactive)
+    (mapc (lambda (x)
+            (unless (or (eq ?\s (aref (buffer-name x) 0))
+                        (eq ?\* (aref (buffer-name x) 0))
+                        (string-equal (buffer-name (current-buffer)) (buffer-name x)))
+              (ignore-errors (kill-buffer x))))
+          (buffer-list)))
+
+  (cl-flet ((put (key def)
+              (define-key evil-normal-state-map (kbd key) def)))
+    (put "SPC b b" #'consult-buffer)
+    (put "SPC b i" #'ibuffer)
+    (define-key global-map [remap list-buffers] 'ibuffer)
+    (put "SPC b d" (defun kill-current-buffer ()
+                     (interactive)
+                     (kill-buffer (current-buffer))))
+    (put "SPC b l" #'evil-buffer)
+    (put "SPC b m" #'bookmark-set)
+    (put "SPC b j" #'bookmark-jump)
+    (put "SPC b s" (defun goto-scratch-buffer ()
+                     (interactive)
+                     (switch-to-buffer "*scratch*")))
+    (put "SPC b O" #'kill-all-other-buffers))
+
+  (define-key evil-normal-state-map (kbd "SPC j r") 'jump-to-register))
+
+(progn ;; evil - file management
+  (defun delete-current-file ()
+    (interactive)
+    (let ((buffer (current-buffer)))
+      (delete-file (buffer-file-name buffer))
+      (kill-buffer buffer)))
+
+  (defun a/find-user-emacs-file (filename)
+    (interactive (list (read-file-name "User Emacs File: " user-emacs-directory)))
+    (find-file filename))
+
+  (define-key evil-normal-state-map (kbd "SPC f s") #'save-buffer)
+  (define-key evil-normal-state-map (kbd "SPC f f") #'find-file)
+  (define-key evil-normal-state-map (kbd "SPC f r") #'rename-visited-file)
+  (define-key evil-normal-state-map (kbd "SPC f d") #'delete-current-file)
+  (define-key evil-normal-state-map (kbd "SPC f p") #'a/find-user-emacs-file))
