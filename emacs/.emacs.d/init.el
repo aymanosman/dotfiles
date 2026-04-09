@@ -459,3 +459,29 @@
 (progn ;; eros
   (install 'eros)
   (eros-mode 1))
+
+(progn ;; evil dired
+
+  (evil-define-key 'normal dired-mode-map
+    "q" 'quit-window
+
+    "^" 'dired-up-directory
+    "+" 'dired-create-directory
+    "d" 'dired-flag-file-deletion
+    "x" 'dired-do-flagged-delete
+
+    "g" 'revert-buffer
+
+    "u" 'dired-unmark
+
+    (kbd "RET") 'dired-find-file
+    (kbd "TAB") 'dired-find-file-other-window))
+
+(progn ;; dired-subtree
+  (install 'dired-subtree))
+
+(progn ;; evil dired-subtree
+
+  (evil-define-key 'normal dired-mode-map
+    (kbd "TAB") 'dired-subtree-toggle
+    (kbd "S-TAB") 'dired-subtree-remove))
