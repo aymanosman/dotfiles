@@ -724,3 +724,20 @@
 (progn ;; devdocs
   (install 'devdocs)
   (keymap-global-set "C-h D" 'devdocs-lookup))
+
+;;; languages
+
+(progn ;; tree-sitter
+  (setq treesit-language-source-alist
+        '((heex "https://github.com/phoenixframework/tree-sitter-heex.git")
+          (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
+
+  (setq major-mode-remap-alist '((elixir-mode . elixir-ts-mode)
+                                 (js-mode . js-ts-mode))))
+
+(progn ;; js
+  (setf js-indent-level 2))
