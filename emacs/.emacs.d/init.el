@@ -688,3 +688,39 @@
     "d" 'timer-list-cancel))
 
 (put 'list-timers 'disabled nil)
+
+(progn ;; emacs
+  (bind-key* "M-o" 'other-window))
+
+(progn ;; emacs-lisp
+  (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'emacs-lisp-byte-compile-and-load))
+
+(progn ;; emacs
+  (setq fill-column 120
+        completions-format 'one-column
+        next-error-message-highlight t)
+  (global-display-fill-column-indicator-mode -1)
+  (define-key global-map [remap forward-word] #'forward-symbol)
+  (recentf-mode 1))
+
+(progn ;; emacs - auto-save on window switch
+  (defun maybe-save-buffer (&rest _ignore)
+    (when (and buffer-file-name
+               (not (file-remote-p default-directory))
+               (buffer-modified-p))
+      (save-buffer)))
+
+  (advice-add 'other-window :before #'maybe-save-buffer)
+  (advice-add 'other-frame :before #'maybe-save-buffer)
+  (advice-add 'select-window :before #'maybe-save-buffer)
+  (add-function :after after-focus-change-function #'maybe-save-buffer))
+
+(progn ;; windmove
+  (keymap-global-set "M-<up>" 'windmove-up)
+  (keymap-global-set "M-<down>" 'windmove-down)
+  (keymap-global-set "M-<left>" 'windmove-left)
+  (keymap-global-set "M-<right>" 'windmove-right))
+
+(progn ;; devdocs
+  (install 'devdocs)
+  (keymap-global-set "C-h D" 'devdocs-lookup))
