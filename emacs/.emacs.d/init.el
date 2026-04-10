@@ -762,3 +762,12 @@
 
 (progn ;; lua
   (install 'lua-mode))
+
+(progn ;; nxml-mode
+  (require 'nxml-mode)
+
+  (defun sgml-pretty-print-buffer ()
+    (interactive)
+    (sgml-pretty-print (point-min) (point-max)))
+
+  (define-key nxml-mode-map [remap indent-buffer] 'sgml-pretty-print-buffer))
