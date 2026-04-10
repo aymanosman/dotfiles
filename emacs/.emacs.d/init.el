@@ -518,3 +518,15 @@
         "◀── now ─────────────────────────────────────────────────")
 
   (global-org-modern-mode 1))
+
+(progn ;; gptel
+  (install 'gptel)
+
+  (setq gptel-default-mode 'org-mode)
+
+  (setq gptel-prompt-prefix-alist
+        '((markdown-mode . "")
+          (org-mode . "")
+          (text-mode . "")))
+
+  (define-key global-map (kbd "C-c C-<return>") #'gptel-send))
