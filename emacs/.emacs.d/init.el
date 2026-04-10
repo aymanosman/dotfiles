@@ -771,3 +771,46 @@
     (sgml-pretty-print (point-min) (point-max)))
 
   (define-key nxml-mode-map [remap indent-buffer] 'sgml-pretty-print-buffer))
+
+(progn ;; common-lisp
+  (setq common-lisp-hyperspec-root "http://www.lispworks.com/reference/HyperSpec/"))
+
+(defun sly-eval-or-send-defun (send-p)
+  (interactive "P")
+  (if send-p
+      (let ((form (apply #'buffer-substring-no-properties
+                         (sly-region-for-defun-at-point))))
+        (save-excursion
+          (with-current-buffer (sly-mrepl--find-create (sly-current-connection))
+            (end-of-buffer)
+            (insert form)
+            (comint-send-input))))
+    (call-interactively #'sly-eval-defun)))
+
+(defun sly-show-mrepl ()
+  (interactive)
+  (evil-window-vsplit)
+  (windmove-right)
+  (let* ((buffer (sly-mrepl--find-create (sly-current-connection))))
+    (switch-to-buffer buffer)
+    buffer))
+
+(progn ;; sly
+  (install 'sly)
+
+  (setq inferior-lisp-program "sbcl --dynamic-space-size 8096")
+
+  (setq sly-auto-start 'ask)
+
+  (define-key sly-mode-map [remap sly-mrepl] #'sly-show-mrepl)
+  (define-key sly-mode-map [remap sly-eval-defun] #'sly-eval-or-send-defun)
+
+  (add-to-list 'sly-connected-hook (defun after-sly-connected ()
+                                     (define-key sly-mrepl-mode-map (kbd "C-M-\\") #'indent-sexp)))
+
+  (evil-collection-define-key 'normal 'sly-mode-map
+    (kbd "K") 'sly-describe-symbol
+    (kbd "C-t") 'sly-pop-find-definition-stack
+    (kbd "M-.") 'sly-edit-definition
+    "gd" 'sly-edit-definition
+    "gz" 'sly-mrepl))
