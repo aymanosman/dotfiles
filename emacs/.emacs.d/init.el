@@ -814,3 +814,37 @@
     (kbd "M-.") 'sly-edit-definition
     "gd" 'sly-edit-definition
     "gz" 'sly-mrepl))
+
+(progn ;; elixir-ts-mode
+  (install 'elixir-ts-mode)
+  (require 'heex-ts-mode)
+
+  (add-to-list 'auto-mode-alist '("\\.exs?$" . elixir-ts-mode))
+  (add-hook 'heex-ts-mode-hook 'exunit-mode))
+
+(progn ;; elixir-format
+  (install 'elixir-mode)
+
+  (require 'elixir-format)
+  (define-key elixir-ts-mode-map [remap indent-buffer] 'elixir-format)
+  (define-key heex-ts-mode-map [remap indent-buffer] 'elixir-format))
+
+(defun elixir-indent-defun ()
+  (interactive)
+  (indent-region
+   (save-excursion
+     (treesit-beginning-of-defun)
+     (point))
+   (save-excursion
+     (treesit-end-of-defun)
+     (point))))
+
+(progn ;; exunit
+  (install 'exunit)
+
+  (add-hook 'elixir-ts-mode-hook 'exunit-mode)
+  (define-key exunit-mode-map (kbd "M-r") #'exunit-rerun)
+  (define-key exunit-compilation-mode-map (kbd "M-r") #'exunit-rerun)
+  (add-hook 'exunit-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-map (kbd "SPC t") #'exunit-transient))))
