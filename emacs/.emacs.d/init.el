@@ -530,3 +530,161 @@
           (text-mode . "")))
 
   (define-key global-map (kbd "C-c C-<return>") #'gptel-send))
+
+(progn ;; evil info
+  (evil-set-initial-state 'Info-mode 'normal)
+  (evil-define-key 'normal Info-mode-map
+    "q" 'quit-window
+
+    (kbd "<tab>") 'Info-next-reference
+    (kbd "S-<tab>") 'Info-prev-reference
+
+    (kbd "C-o") 'Info-history-back
+    (kbd "C-i") 'Info-history-forward
+
+    (kbd "RET") 'Info-follow-nearest-node
+
+    "d" 'Info-directory
+    "u" 'Info-up
+    "gL" 'Info-history
+    "i" 'Info-index
+    "n" 'Info-next-preorder
+    "p" 'Info-last-preorder
+
+    "J" 'Info-menu
+    "m" 'Info-menu
+
+    "gT" 'Info-toc
+    "g?" 'Info-summary
+
+    [mouse-2] 'Info-mouse-follow-nearest-node))
+
+(progn ;; evil help
+  (evil-set-initial-state 'help-mode 'normal)
+  (evil-define-key 'normal help-mode-map
+    "q" 'quit-window
+
+    (kbd "<tab>") 'forward-button
+    (kbd "<backtab>") 'backward-button
+
+    (kbd "C-o") 'help-go-back
+    (kbd "C-i") 'help-go-forward
+
+    "gr" 'revert-buffer
+
+    "s" 'help-view-source
+    "i" 'help-goto-info
+    "c" 'help-customize))
+
+(progn ;; evil xref
+  (evil-set-initial-state 'xref--xref-buffer-mode 'normal)
+  (evil-define-key 'normal xref--xref-buffer-mode-map
+    "q"  #'quit-window
+
+    (kbd "RET") 'xref-goto-xref
+    "o" 'xref-show-location-at-point
+
+    "gr" 'xref-revert-buffer)
+
+  (evil-set-initial-state 'xref--transient-buffer-mode 'normal)
+  (evil-define-key 'normal xref--transient-buffer-mode-map
+    (kbd "RET") 'xref-quit-and-goto-xref))
+
+(progn ;; evil grep-mode
+  (evil-set-initial-state 'grep-mode 'normal)
+  (evil-define-key 'normal 'grep-mode-map
+    "q" #'quit-window
+    "\C-j" 'next-error-no-select
+    "\C-k" 'previous-error-no-select))
+
+(progn ;; evil ert
+  (evil-set-initial-state 'ert-results-mode 'normal)
+
+  (evil-define-key 'normal ert-results-mode-map
+    "j" 'evil-next-line
+    "k" 'evil-previous-line
+    "h" 'evil-backward-char
+    "l" 'evil-forward-char
+    "J" 'ert-results-jump-between-summary-and-result
+    "L" 'ert-results-toggle-printer-limits-for-test-at-point
+    "gj" 'ert-results-next-test
+    "gk" 'ert-results-previous-test
+    "]]" 'ert-results-next-test
+    "[[" 'ert-results-previous-test
+    (kbd "C-j") 'ert-results-next-test
+    (kbd "C-k") 'ert-results-previous-test
+    "gr" 'ert-results-rerun-all-tests
+    "R" 'ert-results-rerun-all-tests
+    "r" 'ert-results-rerun-test-at-point
+    "d" 'ert-results-rerun-test-at-point-debugging-errors
+    "." 'ert-results-find-test-at-point-other-window
+    "gd" 'ert-results-find-test-at-point-other-window
+    "B" 'ert-results-pop-to-backtrace-for-test-at-point
+    "M" 'ert-results-pop-to-messages-for-test-at-point
+    "s" 'ert-results-pop-to-should-forms-for-test-at-point
+    "K" 'ert-results-describe-test-at-point
+    "g?" 'ert-results-describe-test-at-point
+    "x" 'ert-delete-test
+    "T" 'ert-results-pop-to-timings))
+
+(progn ;; evil process-menu
+  (evil-define-key 'normal process-menu-mode-map
+    "q" 'quit-window
+    (kbd "<tab>") 'forward-button
+    "D" 'process-menu-delete-process
+    "r" 'revert-buffer))
+
+(progn ;; evil ibuffer
+  (evil-set-initial-state 'ibuffer-mode 'normal)
+
+  (evil-define-key 'normal ibuffer-mode-map
+    "q" 'quit-window
+
+    (kbd "=") 'ibuffer-diff-with-file
+
+    (kbd "m") 'ibuffer-mark-forward
+    (kbd "u") 'ibuffer-unmark-forward
+    (kbd "U") 'ibuffer-unmark-all-marks
+
+    (kbd "d") 'ibuffer-mark-for-delete
+    (kbd "x") 'ibuffer-do-kill-on-deletion-marks
+
+    (kbd "r") 'ibuffer-redisplay
+    (kbd "gr") 'ibuffer-update
+
+    (kbd "RET") 'ibuffer-visit-buffer
+    (kbd "o") 'ibuffer-visit-buffer-other-window-noselect
+
+    (kbd "s RET") 'ibuffer-filter-by-mode
+    (kbd "s n") 'ibuffer-filter-by-name
+    (kbd "s *") 'ibuffer-filter-by-starred-name
+    (kbd "s f") 'ibuffer-filter-by-filename
+    (kbd "s p") 'ibuffer-filter-by-process
+    (kbd "s /") 'ibuffer-filter-disable))
+
+(progn ;; evil sqlite-mode
+  (evil-set-initial-state 'sqlite-mode 'normal)
+
+  (evil-define-key 'normal sqlite-mode-map
+    "q" 'quit-window
+
+    (kbd "RET") 'sqlite-mode-list-data
+    "c" 'sqlite-mode-list-columns
+    "g" 'sqlite-mode-list-tables
+    "d" 'sqlite-mode-delete))
+
+(progn ;; evil backtrace
+  (evil-define-key 'normal backtrace-mode-map
+    "s" 'backtrace-goto-source))
+
+(progn ;; evil org
+  (evil-define-key 'normal org-mode-map
+    [tab] 'org-cycle
+    [S-tab] 'org-shifttab))
+
+(progn ;; evil timer-list
+  (evil-set-initial-state 'timer-list-mode 'normal)
+  (evil-define-key 'normal timer-list-mode-map
+    "d" 'timer-list-cancel))
+
+(put 'list-timers 'disabled nil)
