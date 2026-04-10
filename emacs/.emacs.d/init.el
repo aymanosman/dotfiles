@@ -741,3 +741,24 @@
 
 (progn ;; js
   (setf js-indent-level 2))
+
+(progn ;; json-mode
+  (install 'json-mode))
+
+(progn ;; fish-mode
+  (install 'fish-mode))
+
+(progn ;; web-mode
+  (install 'web-mode))
+
+(progn ;; markdown
+  (install 'markdown-mode))
+
+(progn ;; typescript
+  (install 'typescript-mode))
+
+(progn ;; clojure
+  (install 'cider))
+
+(progn ;; lua
+  (install 'lua-mode))
