@@ -364,6 +364,8 @@
         org-confirm-babel-evaluate nil
         org-export-babel-evaluate nil)
 
+  (add-to-list 'org-src-lang-modes '("tsx" . tsx-ts))
+
   (org-clock-persistence-insinuate)
   (setq org-clock-persist 'history)
 
