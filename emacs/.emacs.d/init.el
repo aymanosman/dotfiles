@@ -418,6 +418,10 @@
 (progn ;; re-builder
   (setq reb-re-syntax 'string))
 
+(progn ;; emacs - exec-path
+  (setenv "PATH" (cl-concatenate 'string (expand-file-name "~/.asdf/shims") ":" (getenv "PATH")))
+  (add-to-list 'exec-path "~/.asdf/shims"))
+
 (progn ;; tramp
   (require 'tramp)
   (setq shell-file-name "/bin/sh")
