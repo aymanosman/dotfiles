@@ -420,7 +420,7 @@
 
 (progn ;; emacs - exec-path
   (setenv "PATH" (cl-concatenate 'string (expand-file-name "~/.asdf/shims") ":" (getenv "PATH")))
-  (add-to-list 'exec-path "~/.asdf/shims"))
+  (add-to-list 'exec-path (expand-file-name "~/.asdf/shims")))
 
 (progn ;; tramp
   (require 'tramp)
