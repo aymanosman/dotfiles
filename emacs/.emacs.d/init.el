@@ -855,3 +855,7 @@
   (add-hook 'exunit-mode-hook
             (lambda ()
               (define-key evil-normal-state-map (kbd "SPC t") #'exunit-transient))))
+
+;;; private
+
+(load (locate-user-emacs-file "private-init.el") 'noerror 'nomessage)
