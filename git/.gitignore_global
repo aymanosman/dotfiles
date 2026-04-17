@@ -1,0 +1,32 @@
+.DS_Store
+
+*~
+*#
+
+# IntelliJ
+.idea
+*.iml
+
+# JavaScript
+.tern-port
+
+# Clojure
+.nrepl-port
+.lein-repl-history
+.cpcache
+.rebel_readline_history
+
+# Common Lisp
+*.fasl
+
+.lexical
+
+jest.config.js
+
+.daily
+
+.claude
+
+CLAUDE.md
+
+.agent

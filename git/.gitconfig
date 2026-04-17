@@ -3,6 +3,8 @@
     email = aymano.osman@gmail.com
 [core]
 	autocrlf = input
+	editor = emacsclient --alternate-editor="" -t
+	excludesfile = ~/.gitignore_global
 [merge]
     ff = true
 [color]
