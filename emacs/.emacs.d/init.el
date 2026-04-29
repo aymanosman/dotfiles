@@ -822,6 +822,33 @@
     "gd" 'sly-edit-definition
     "gz" 'sly-mrepl))
 
+(progn ;; evil sly-db
+  (evil-set-initial-state 'sly-db-mode 'normal)
+
+  (evil-define-key 'normal sly-db-mode-map
+    "q" 'sly-db-quit
+    "a" 'sly-db-abort
+    "c" 'sly-db-continue
+    "n" 'sly-db-down
+    "p" 'sly-db-up
+    (kbd "M-n") 'sly-db-details-down
+    (kbd "M-p") 'sly-db-details-up
+    "<" 'sly-db-beginning-of-backtrace
+    ">" 'sly-db-end-of-backtrace
+    "A" 'sly-db-break-with-system-debugger
+    "B" 'sly-db-break-with-default-debugger
+    "P" 'sly-db-print-condition
+    "I" 'sly-db-invoke-restart-by-name
+    "C" 'sly-db-inspect-condition
+    ":" 'sly-interactive-eval
+    "Q" 'sly-db-quit
+    (kbd "TAB") 'forward-button
+    (kbd "<backtab>") 'backward-button)
+
+  (dotimes (n 10)
+    (define-key sly-db-mode-map (number-to-string n)
+                (intern (format "sly-db-invoke-restart-%S" n)))))
+
 (progn ;; elixir-ts-mode
   (install 'elixir-ts-mode)
   (require 'heex-ts-mode)
