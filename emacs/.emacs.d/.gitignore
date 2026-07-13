@@ -26,3 +26,4 @@ ede-projects.el
 /forge-database.sqlite
 /nov-places
 *.info
+/private-init.el
