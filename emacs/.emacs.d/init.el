@@ -84,10 +84,11 @@
 
   (define-key global-map (kbd "<escape>") 'keyboard-escape-quit))
 
-(progn ;; evil-collection
-  (install 'evil-collection)
-  (setq evil-collection-want-unimpaired-p nil)
-  (evil-collection-init '(calendar magit magit-section debug edebug corfu replace proced)))
+(progn ;; evil
+  (load "configure-evil-debug")
+  (load "configure-evil-edebug")
+  (load "configure-evil-proced")
+  (load "configure-evil-replace"))
 
 (progn ;; which-key
   (install 'which-key)
@@ -114,6 +115,7 @@
 (progn ;; corfu
   (install 'corfu)
   (setq corfu-auto t)
+  (load "configure-evil-corfu")
   (global-corfu-mode))
 
 (progn ;; consult
@@ -250,6 +252,9 @@
   (install 'magit)
   (install 'git-modes)
 
+  (load "configure-evil-magit")
+  (load "configure-evil-magit-section")
+
   (add-hook 'gitignore-mode-hook
             (lambda ()
               (setq require-final-newline t)))
@@ -277,7 +282,9 @@
 
 (progn ;; calendar
   (setq calendar-week-start-day 1
-        calendar-date-style 'iso))
+        calendar-date-style 'iso)
+
+  (load "configure-evil-calendar"))
 
 (progn ;; default-text-scale
   (install 'default-text-scale)
@@ -815,7 +822,7 @@
   (add-to-list 'sly-connected-hook (defun after-sly-connected ()
                                      (define-key sly-mrepl-mode-map (kbd "C-M-\\") #'indent-sexp)))
 
-  (evil-collection-define-key 'normal 'sly-mode-map
+  (evil-define-key 'normal sly-mode-map
     (kbd "K") 'sly-describe-symbol
     (kbd "C-t") 'sly-pop-find-definition-stack
     (kbd "M-.") 'sly-edit-definition
