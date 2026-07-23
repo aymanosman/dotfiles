@@ -19,6 +19,13 @@
       magit-status-mode)
     "Magit modes that should start in Normal state.")
 
+  (evil-define-operator evil-collection-magit-yank-whole-line
+    (beg end type register yank-handler)
+    "Yank whole line."
+    :motion evil-line-or-visual-line
+    (interactive "<R><x>")
+    (evil-yank beg end type register yank-handler))
+
   (defun evil-collection-magit-set-initial-states ()
     "Set the initial state for relevant Magit modes."
     (dolist (mode evil-collection-magit-emacs-to-evil-collection-magit-state-modes)
@@ -46,6 +53,11 @@
       (when (boundp map)
         (evil-make-overriding-map (symbol-value map) 'normal)))
 
+    (evil-define-key '(normal visual) magit-mode-map
+      "v" #'evil-visual-line
+      "V" #'evil-visual-line
+      (kbd "C-w") evil-window-map)
+
     (evil-define-key 'normal magit-mode-map
       "j" #'evil-next-line
       "k" #'evil-previous-line
@@ -61,7 +73,15 @@
       "gh" #'magit-section-up
       "gr" #'magit-refresh
       "gR" #'magit-refresh-all
+      "y" nil
+      "yy" #'evil-collection-magit-yank-whole-line
+      "yr" #'magit-show-refs
+      "ys" #'magit-copy-section-value
+      "yb" #'magit-copy-buffer-revision
       "q" #'magit-mode-bury-buffer)
+
+    (evil-define-key 'visual magit-mode-map
+      "y" #'magit-copy-section-value)
 
     (add-hook 'magit-mode-hook #'evil-normalize-keymaps)
     (evil-collection-magit-adjust-section-bindings))
