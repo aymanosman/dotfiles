@@ -99,6 +99,7 @@
   (vertico-mode))
 
 (progn ;; emacs
+  (define-key global-map (kbd "C-c C-c") #'eval-defun)
   (define-key minibuffer-local-completion-map " " 'self-insert-command)
   (define-key minibuffer-local-completion-map "?" 'self-insert-command))
 
