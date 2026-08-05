@@ -1,2 +1,4 @@
 /fish_variables
 /conf.d/local.fish
+/completions/
+/generated_completions/
