@@ -23,11 +23,11 @@
   (seq-some (lambda (root-marker)
               (cl-destructuring-bind (root-marker properties)
                   (monorepo--normalize-root-marker root-marker)
-                (if-let ((root (locate-dominating-file dir
-                                                       (lambda (dir)
-                                                         (condition-case nil
-                                                             (directory-files dir nil (wildcard-to-regexp root-marker) t)
-                                                           (file-missing nil))))))
+                (if-let* ((root (locate-dominating-file dir
+                                                        (lambda (dir)
+                                                          (condition-case nil
+                                                              (directory-files dir nil (wildcard-to-regexp root-marker) t)
+                                                            (file-missing nil))))))
                     (list root properties))))
             monorepo-root-markers))
 
