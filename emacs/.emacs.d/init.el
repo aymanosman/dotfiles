@@ -385,6 +385,9 @@
   (keymap-global-set "C-c l" 'org-store-link)
   (keymap-global-set "C-c c" 'org-capture))
 
+(progn ;; ox-gfm
+  (install 'ox-gfm))
+
 (progn ;; eww
   (setq shr-use-fonts nil)
   (setq shr-width 80))
