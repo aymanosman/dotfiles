@@ -40,6 +40,12 @@
 (global-set-key (kbd "C--") #'text-scale-decrease)
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
 
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
+(define-key global-map (kbd "M-i") #'indent-buffer)
+
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
